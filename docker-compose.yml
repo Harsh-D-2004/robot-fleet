@@ -1,0 +1,28 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports: ["1883:1883"]
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mqdata:/mosquitto/data
+
+  robots:
+    build: ./robots
+    environment:
+      MQTT_HOST: mosquitto
+      SPEEDUP: "3"
+      KEEPALIVE: "10"
+      LOG_LEVEL: "INFO"
+    depends_on: [mosquitto]
+
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    environment:
+      MQTT_HOST: mosquitto
+      STALE_AFTER_S: "15"
+      LOG_LEVEL: "INFO"
+    depends_on: [mosquitto]
+
+volumes:
+  mqdata: {}
