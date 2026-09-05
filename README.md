@@ -20,7 +20,7 @@ gh repo clone Harsh-D-2004/robot-fleet
 ```bash
 docker compose up
 ```
-That's it — no manual steps. (`--build` whenever you change code; drop it otherwise.)
+That's it (`--build` whenever you change code; drop it otherwise.)
 
 ## See the feed
 
